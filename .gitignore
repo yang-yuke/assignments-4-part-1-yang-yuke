@@ -7,4 +7,3 @@ aesd-build
 .vscode/
 test.sh.log
 actions-runner/
-assignment-autotest/
