@@ -111,7 +111,7 @@ bool do_exec(int count, ...)
     }
     va_end(args);
 
-    return false;
+    return true;
 }
 
 /**
@@ -157,7 +157,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
         int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0666);
         if (fd == -1) {
             perror("open");
-            return false;
+            exit (EXIT_FAILURE);
         }
 
         // duplicate the standard output to the file specified by fd
@@ -171,7 +171,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
         //Execute the command in the child process
         if(execv(command[0], command) == -1){
             perror("do_exec_redirect, execv");
-            return false;
+            exit (EXIT_FAILURE);
         }
     }
     else {//Parent process
@@ -184,14 +184,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
         }
 
         //Check if the child process terminated normally
-        if(WIFEXITED(status)){
-            printf("do_exec_redirect, Child process terminated with exit status: %d\n", WEXITSTATUS(status));
-            return WEXITSTATUS(status) == 0;
-        }
-        else {
-            printf("do_exec_redirect, Child process terminated abnormally\n");
-            return false;
-        }
+        return WIFEXITED(status) && (WEXITSTATUS(status) == 0);
     }
 
     va_end(args);
