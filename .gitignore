@@ -1,4 +1,5 @@
 *.o
+*.idx
 writer
 Test_*_Runner.c
 build/
