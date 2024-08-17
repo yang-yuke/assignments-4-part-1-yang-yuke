@@ -129,7 +129,7 @@ DEST="${OUTDIR}/rootfs/home/writer"
 # check if file exists
 if [ ! -f "$DEST" ]; then
     echo "$DEST does not exist. Compiling..."
-    $CC -o "$DEST" "$SRC"
+    ${CROSS_COMPILE}gcc -o ${OUTDIR}/rootfs/home/writer writer.c
 else
     echo "$DEST already exists. No need to compile."
 fi
