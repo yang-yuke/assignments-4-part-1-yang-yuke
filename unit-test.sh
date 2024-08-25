@@ -6,7 +6,8 @@
 # cmake .. && make && run the assignment-autotest application
 mkdir -p build
 cd build
-cmake ..
+#cmake ..
+cmake -G "Unix Makefiles" .. #use makefile generator
 make clean
 make
 cd ..
